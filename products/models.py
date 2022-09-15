@@ -17,6 +17,7 @@ class Product(models.Model):
     subtitle = models.CharField(_('Subtitle'), max_length=500)
     desc = models.TextField(_('Description'), max_length=10000)
     price = models.FloatField(_('Price'))
+    image = models.ImageField(upload_to='products/')
     flag = models.CharField(_('Flag'), max_length=10, choices=FLAG_OPTION)
     quantity = models.IntegerField(_('Quantity'))
     brand = models.ForeignKey('Brand', related_name='product_brand', on_delete=models.SET_NULL, null=True, blank=True)
@@ -42,7 +43,7 @@ class Category(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='product_image', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='product-images/')
+    image = models.ImageField(upload_to='product_images/')
 
     def __str__(self):
         return str(self.product)
