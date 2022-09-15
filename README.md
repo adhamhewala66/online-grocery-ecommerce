@@ -1,2 +1,2 @@
 # Django-Greeny
-django ecommerce website
+Django Ecommerce Eebsite
