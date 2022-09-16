@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 FLAG_OPTION = (
     ('New', 'New'),
@@ -23,20 +24,28 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand', related_name='product_brand', on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey('Category', related_name='product_category', on_delete=models.SET_NULL, null=True, blank=True)
     tags = TaggableManager()
+    slug = models.SlugField(null=True, blank=True)
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        #this line below give to the instance slug field a slug name
+        self.slug = slugify(self.name)
+        #this line below save every fields of the model instance
+        super(Product, self).save(*args, **kwargs) 
 
 class Brand(models.Model):
     name = models.CharField(_('Name'), max_length=120)
     image = models.ImageField(_('Image'), upload_to='brands/')
+    category = models.ForeignKey('Category', related_name='brand_category', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=120)
-    image = models.ImageField(_('Image'), upload_to='brands/')
+    image = models.ImageField(_('Image'), upload_to='categorys/')
 
     def __str__(self):
         return self.name

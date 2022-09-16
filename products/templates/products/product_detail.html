@@ -33,7 +33,7 @@
                     <div class="col-lg-6">
                         <div class="details-gallery">
                             <div class="details-label-group">
-                                <label class="details-label new">new</label>
+                                <label class="details-label new">{{product.flag}}</label>
                                 <label class="details-label off">-10%</label>
                             </div>
                             <ul class="details-preview"> 
@@ -72,9 +72,9 @@
                             </li>
                         </ul>
                         <div class="details-content">
-                            <h3 class="details-name"><a href="#">existing product name</a></h3>
+                            <h3 class="details-name"><a href="#">{{product}}</a></h3>
                             <div class="details-meta">
-                                <p>SKU:<span>1234567</span></p>
+                                <p>SKU:<span>{{product.sku}}</span></p>
                                 <p>BRAND:<a href="#">radhuni</a></p>
                             </div>
                             <div class="details-rating">
@@ -87,7 +87,7 @@
                             </div>
                             <h3 class="details-price">
                                 <del>$38.00</del>
-                                <span>$24.00<small>/per kilo</small></span>
+                                <span>${{product.price}}<small>/per kilo</small></span>
                             </h3>
                             <p class="details-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit facere harum natus amet soluta fuga consectetur alias veritatis quisquam ab eligendi itaque eos maiores quibusdam.</p>
                             <div class="details-list-group">
