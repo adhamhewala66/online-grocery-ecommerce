@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
+from django.db.models.aggregates import Avg
 
 FLAG_OPTION = (
     ('New', 'New'),
@@ -33,7 +34,11 @@ class Product(models.Model):
         #this line below give to the instance slug field a slug name
         self.slug = slugify(self.name)
         #this line below save every fields of the model instance
-        super(Product, self).save(*args, **kwargs) 
+        super(Product, self).save(*args, **kwargs)
+        
+    def avg_review(self):
+        avg = self.product_review.aggregate(avg=Avg('rate'))
+        return avg
 
 class Brand(models.Model):
     name = models.CharField(_('Name'), max_length=120)
